@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 255, 255, 255;
+  --header-rgb: 245, 245, 245;
+  --footer-rgb: 54, 162, 118; 
+  --p-color-rbg: 0, 0, 0;
+  --container-background-rgb: 250, 250, 250;
+  --container-border-rgb: 54, 162, 118;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-rgb: 255, 255, 255;
+    --header-rgb: 255, 0, 0;
+    --footer-rgb: 54, 162, 118; 
+    --p-color-rbg: 0, 0, 0;
+    --container-background-rgb: 250, 250, 250;
+    --container-border-rgb: 54, 162, 118;
+  }
+}
+
+.p-24 {
+  padding: 0px;
+}
+
+body {
+  color: rgb(var(--p-color-rbg));
+  background: rgb(var(--background-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+.dashboardComonent {
+  background-color: rgb(var(--container-background-rgb));
+  border-width: 2px;
+  border-color: rgb(var(--container-border-rgb));
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px;
+}
+
+.pageHeader{
+  background: rgb(var(--header-rgb));
+  font-weight: bold;
+  height: 15vh;
+  width: 100vw;
+}
+
+.pageFooter{
+  background: rgb(var(--footer-rgb));
+  font-weight: lighter;
+  height: 10vh;
+  width: 100vw;
+}
+
+.dropDownContainer{
+  background-color: rgb(var(--container-background-rgb));
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.align-center {
+  align-items: center;
+  justify-content: center;
+}
+
+main {
+  height: 100vh;
+  width: 100vw;
+}
+
