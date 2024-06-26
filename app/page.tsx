@@ -1,10 +1,9 @@
 'use client';
 import React, { useState } from 'react';
-import Header from "./header";
 import Footer from "./footer";
 import DropDownComponent from "./drop-down-component";
 import data from '../app/data/database.json';
-import { Card, CardBody } from "@nextui-org/react";
+import { Card, CardBody, CardHeader } from "@nextui-org/react";
 import BarchartComponent from './barchart-component';
 
 export default function Home() {
@@ -25,7 +24,7 @@ export default function Home() {
       return !searchParams.level || searchParams.level === "Tous" || caseInsensitiveComarision(item.niveau, searchParams.level);
     })
     .filter(item => {
-      return !searchParams.passe || searchParams.passe === "Tous" || caseInsensitiveComarision(item.passe, searchParams.passe);
+      return !searchParams.passe || searchParams.passe === "Toutes" || caseInsensitiveComarision(item.passe, searchParams.passe);
     });
   
     return answer;
@@ -41,50 +40,66 @@ export default function Home() {
   const price = findPriceAverage(searchParams);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Header></Header>
-      <div className='dash-component-container'>
-        <div className='flex-row drop-down-bar'>
-          <DropDownComponent
-            dropDownTitle="Saisons"
-            dropDownElements={["Toutes", "Automne", "Hiver", "Été", "Printemps"]}
-            selectedKey={season}
-            onSelectionChange= {setSeason}
-          />
-
-
-          <DropDownComponent
-            dropDownTitle="Niveau"
-            dropDownElements={["Tous", "Novice", "Moyen", "Pro"]}
-            selectedKey={level}
-            onSelectionChange={setLevel}
-          />
-
-          <DropDownComponent
-            dropDownTitle="Passe"
-            dropDownElements={["Tous", "Simple", "Double", "Illimité"]}
-            selectedKey={passe}
-            onSelectionChange={setPasse}
-          />
-        </div>
-        <div className='price-card'>
-          <Card className='price-card'>
-            <CardBody className="price-bard-body">
-              <p>Le prix moyen considérant les paramètres choisi est de :</p>
-              <p>{price}$</p>
-            </CardBody>
-          </Card>   
-        </div>     
-        
-        <div className='space-between barchart-container'>
-          <BarchartComponent  data={filteredData} parameter="saison"/>    
-      
-          <BarchartComponent data={filteredData} parameter="niveau"/>
-      
-          <BarchartComponent data={filteredData} parameter="age"/>
-        </div>
+    <div className="dashboard">
+      <div className="sidebar">
+        <nav>
+          <ul>
+            <li>Dashboard</li>
+            <li>Paramètre 1</li>
+            <li>Paramètre 2</li>
+            <li>ETC.</li>
+          </ul>
+        </nav>
+        <footer>
+          <p>Sidebar Footer</p>
+        </footer>
       </div>
-      <Footer></Footer>
-    </main>
+      <div className="main-content">
+        <div className="content">
+          <div className='dash-component-container'>
+            <Card className='drop-down-bar'>
+              <CardHeader>Paramètres</CardHeader>
+              <CardBody>
+              <div className='flex-row drop-down-bar'>
+                <DropDownComponent
+                dropDownTitle="Saison"
+                dropDownElements={["Toutes", "Automne", "Hiver", "Été", "Printemps"]}
+                selectedKey={season}
+                onSelectionChange={setSeason}
+                />
+                <DropDownComponent
+                  dropDownTitle="Niveau"
+                  dropDownElements={["Tous", "Novice", "Moyen", "Pro"]}
+                  selectedKey={level}
+                  onSelectionChange={setLevel}
+                />
+                <DropDownComponent
+                  dropDownTitle="Passe"
+                  dropDownElements={["Toutes", "Simple", "Double", "Illimité"]}
+                  selectedKey={passe}
+                  onSelectionChange={setPasse}
+                />
+              </div>
+                </CardBody>
+              </Card>              
+            
+            <div className='price-card'>
+              <Card className='price-card'>
+                <CardBody className="price-bard-body">
+                  <p>Le prix moyen considérant les paramètres choisi est de :</p>
+                  <p className='price'>{price}$</p>
+                </CardBody>
+              </Card>
+            </div>
+            <div className='space-between barchart-container'>
+              <BarchartComponent data={filteredData} parameter="saison" />
+              <BarchartComponent data={filteredData} parameter="niveau" />
+              <BarchartComponent data={filteredData} parameter="age" />
+            </div>
+          </div>
+        </div>
+        <Footer className="footer" />
+      </div>
+    </div>
   );
 }
