@@ -1,13 +1,15 @@
 import React from 'react';
-import Chart from 'chart.js/auto';
+import Chart, {ChartData} from 'chart.js/auto';
 import { CategoryScale } from 'chart.js';
 Chart.register(CategoryScale);
 import { Bar } from 'react-chartjs-2';
 
-export default function BarchartComponent({ data, parameter}) {
+export default function BarchartComponent({ data, parameter}: {data: any[], parameter: string}) {
     const dataSet = data.map((item: any) => item[parameter]);
     const countMap = new Map();
-    let chartData = {};
+    let chartData: ChartData<"bar"> = {labels:[],
+        datasets: [],
+    };
 
     switch (parameter) {
         default:

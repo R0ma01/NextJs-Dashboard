@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
 
-export default function DropDownComponent({ dropDownTitle, dropDownElements, selectedKey, onSelectionChange }) {
+export default function DropDownComponent({ dropDownTitle, dropDownElements, selectedKey, onSelectionChange }: { dropDownTitle: string, dropDownElements: string[], selectedKey: string, onSelectionChange: Function }) {
     const selectedValue = selectedKey || dropDownTitle;
 
     return (
