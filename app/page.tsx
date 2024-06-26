@@ -5,10 +5,11 @@ import DropDownComponent from "./drop-down-component";
 import data from '../app/data/database.json';
 import { Card, CardBody, CardHeader } from "@nextui-org/react";
 import BarchartComponent from './barchart-component';
+import { SearchParams } from './interface';
 
 export default function Home() {
 
-  function caseInsensitiveComarision (string1: string, string2: string) {
+  function caseInsensitiveCompare (string1: string, string2: string) {
     return string1.toLowerCase() === string2.toLowerCase();
   }
 
@@ -16,26 +17,26 @@ export default function Home() {
   const [level, setLevel] = useState('');
   const [passe, setPasse] = useState('');
 
-  const filterData = (searchParams) => {
+  const filterData = (searchParams: SearchParams) => {
     const answer = data.filter(item => {
-      return !searchParams.season || searchParams.season === "Toutes" || caseInsensitiveComarision(item.saison, searchParams.season);
+      return !searchParams.season || searchParams.season === "Toutes" || caseInsensitiveCompare(item.saison, searchParams.season);
     })
     .filter(item => {
-      return !searchParams.level || searchParams.level === "Tous" || caseInsensitiveComarision(item.niveau, searchParams.level);
+      return !searchParams.level || searchParams.level === "Tous" || caseInsensitiveCompare(item.niveau, searchParams.level);
     })
     .filter(item => {
-      return !searchParams.passe || searchParams.passe === "Toutes" || caseInsensitiveComarision(item.passe, searchParams.passe);
+      return !searchParams.passe || searchParams.passe === "Toutes" || caseInsensitiveCompare(item.passe, searchParams.passe);
     });
   
     return answer;
   } 
 
-  const findPriceAverage = (searchParams) => {
+  const findPriceAverage = (searchParams: SearchParams) => {
     const filteredData = filterData(searchParams);
     return filteredData.length !== 0 ? Math.round(filteredData.reduce((acc, item) => acc + item.prix, 0) / filteredData.length) : 0;
   };
 
-  const searchParams = { season, level, passe };
+  const searchParams: SearchParams = { season, level, passe };
   const filteredData = filterData(searchParams);
   const price = findPriceAverage(searchParams);
 
@@ -85,20 +86,20 @@ export default function Home() {
             
             <div className='price-card'>
               <Card className='price-card'>
-                <CardBody className="price-bard-body">
+                <CardBody>
                   <p>Le prix moyen considérant les paramètres choisi est de :</p>
                   <p className='price'>{price}$</p>
                 </CardBody>
               </Card>
             </div>
-            <div className='space-between barchart-container'>
+            <div className='barchart-container'>
               <BarchartComponent data={filteredData} parameter="saison" />
               <BarchartComponent data={filteredData} parameter="niveau" />
               <BarchartComponent data={filteredData} parameter="age" />
             </div>
           </div>
         </div>
-        <Footer className="footer" />
+        <Footer/>
       </div>
     </div>
   );

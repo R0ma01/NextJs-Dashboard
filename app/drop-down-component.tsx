@@ -20,7 +20,7 @@ export default function DropDownComponent({ dropDownTitle, dropDownElements, sel
                     selectedKeys={new Set([selectedKey])}
                     onSelectionChange={(keys) => onSelectionChange(Array.from(keys)[0])}
                 >
-                    {dropDownElements.map((item) => (
+                    {dropDownElements.map((item: any) => (
                         <DropdownItem key={item}>{item}</DropdownItem>
                     ))}
                 </DropdownMenu>

@@ -5,13 +5,13 @@ Chart.register(CategoryScale);
 import { Bar } from 'react-chartjs-2';
 
 export default function BarchartComponent({ data, parameter}) {
-    const dataSet = data.map(item => item[parameter]);
+    const dataSet = data.map((item: any) => item[parameter]);
     const countMap = new Map();
     let chartData = {};
 
     switch (parameter) {
         default:
-            dataSet.forEach(word => {
+            dataSet.forEach((word: string) => {
                 if (countMap.get(word)) {
                     countMap.set(word, countMap.get(word) + 1);
                 } else {
@@ -25,7 +25,7 @@ export default function BarchartComponent({ data, parameter}) {
             countMap.set("24 à 28", 0);
             countMap.set("29 et +", 0);
 
-            dataSet.forEach(age => {
+            dataSet.forEach((age: number) => {
                 if (age >= 29) {
                     countMap.set("29 et +", countMap.get("29 et +") + 1);
                 } else if (age >= 24) {
